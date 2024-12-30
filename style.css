@@ -1,8 +1,256 @@
-html, body {
+:root{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+html, body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  background-color: #f5f5f5;
 }
 
+nav{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: 350px;
+  z-index: 5;
+}
+img{
+  width: 100%;
+  height: 100%;
+}
+.btnContainer{
+  width: 50px;
+  height: 50px;
+}
+.MenuList{
+  border: none;
+  width: 100%;
+  height: 100%;
+  background-color: #f3f3f3;
+}
+.MenuList:hover{
+  background-color: #e3e3e3;
+}
 canvas {
   display: block;
+  margin-top: 50px;
+}
+.login{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+form{
+  display: flex;
+  gap: 15px;
+}
+input{
+  border: 1px solid black;
+}
+#login{
+  z-index: 3;
+}
+#saveMelody{
+  z-index: 2;
+}
+.loginForm{
+  display: flex;
+  flex-direction: column;
+}
+.Opciones{
+  position: absolute;
+  top: 55px;
+  flex-direction: column;
+  width: 350px;
+}
+.Opciones button{
+  width: 100%;
+  height: 40px;
+  border: none;
+}
+.Opciones button:hover{
+  background-color: #e3e3e3;
+}
+.cerrarSesion{
+  display: none;
+}
+body{
+  overflow: hidden;
+}
+.botonDePrueba{
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px;
+}
+#saveMelody{
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+#guardarMelodiaForm{
+  display: flex;
+  flex-direction: column;
+}
+.melodiasGuardadasSection{
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+ul{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+li{
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.guia{
+  position: absolute;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  margin: 50px 0 5% 0;
+  width: 350px;
+  height: 550px;
+}
+.imgContainer{
+  width: 90%;
+  margin: 0 5%;
+  position: relative;
+}
+.controlesWASD::before, .controlesAccion::before, .controlesTeclasMusicales::before, .mapaAtril::before, .mapaGrabadora::before{
+  position: absolute;
+  content: '';
+  border: 6px solid rgb(147, 0, 0);
+  border-radius: 25px;
+}
+.controlesWASD::before{
+  top: 5%;
+  left: 5%;
+  width: 50%;
+  height: 85%;
+}
+.controlesAccion::before{
+  top: 5%;
+  right: 3%;
+  width: 30%;
+  height: 44%;
+}
+.controlesTeclasMusicales::before{
+  top: 31%;
+  left: -3%;
+  width: 102%;
+  height: 38%;
+}
+.mapaAtril::before{
+  top: 33%;
+  left: 37%;
+  width: 19%;
+  height: 14%;
+}
+.mapaGrabadora::before{
+  top: 26%;
+  left: 42%;
+  width: 21%;
+  height: 24%;
+}
+span{
+  font-weight: bold;
+}
+h1,h2,h3,h4{
+  font-weight: bolder;
+}
+h2{
+  font-size: 2.5em;
+}
+h3, h4{
+  font-size: 1.5em;
+}
+p,span{
+  font-size: 1em;
+}
+.guia::-webkit-scrollbar{
+  display: none;
+}
+li button{
+  border: none;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+.Ocultar{
+  display: none;
+}
+.loginForm, #guardarMelodiaForm{
+  width: 350px;
+  border: 3px solid black;
+  padding: 15px;
+  border-radius: 15px;
+  margin: 15px;
+}
+.Mostrar{display: flex;}
+@media (min-width: 600px) {
+  nav, .Opciones, .guia{
+    width: 600px;
+  }
+  .guia{
+    height: 800px;
+  }
+  .Opciones{
+    border: 1px solid black;
+  }
+  *{
+    font-size: 24px;
+  }
+  .controlesAccion::before{
+    top: 7%;
+    right: 4%;
+  }
+  .controlesTeclasMusicales::before{
+    top: 32%;
+    left: -2%;
+    height: 37%;
+  }
+  .mapaAtril::before{
+    top: 34%;
+    left: 38%;
+    width: 18%;
+    height: 13%;
+  }
+  .mapaGrabadora::before{
+    top: 27%;
+    left: 43%;
+    width: 20%;
+    height: 23%;
+  }
 }
