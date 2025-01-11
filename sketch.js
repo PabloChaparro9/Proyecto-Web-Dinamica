@@ -1,4 +1,23 @@
+let osc;
+let myFreq = 262;
+let amp = 0.1;
+let notas = [
+  C=261.63,
+  D=293.66,
+  Eb=311.13,
+  E=329.63,
+  F=349.33,
+  G=392,
+]
+let melody={
+  name: '',
+  notesIndex: [],
+  tempo: 120
+};
+let noteDuration = 60 / melody.tempo;
+let osciladores= [];
 let SlimeLeft, SlimeRight, Player, ClassRoom,ClassRoomLeft,ClassRoomRight,RoomRecorder,TeclasImg, Fondo;
+let ActionCondition = false;
 let controlSize = 75;
 function preload(){
   SlimeLeft =  loadImage("./assets/Slime-left.png")
@@ -66,6 +85,14 @@ function keyPressed() {
   }else{
     resetVelocidad();
   }
+  if((key === 'e' || key === 'E')){
+    Accion();
+  }
+}
+function Accion(){
+  if(Fondo.r === FondoMayor.r || Fondo.r === FondoMenor.r || Fondo.r === 100){
+    ActionCondition = !ActionCondition;
+  }
 }
 function player(){
   image(Player.PlayerImg,Player.posX,Player.posY,controlSize,controlSize);
@@ -80,7 +107,7 @@ function cambiarFondo() {
       Player.posY = 200;
       Fondo.f = FondoMayor.f;
       Fondo.FondoImg = ClassRoomRight;
-      /* generarMelodia() */
+      generarMelodia()
     }else if(Fondo.f === FondoMenor.f){
       Player.posX = 10;
       Player.posY = 200;
@@ -94,7 +121,7 @@ function cambiarFondo() {
       Player.posY = 200;
       Fondo.f = FondoMenor.f
       Fondo.FondoImg = ClassRoomLeft;
-      /* generarMelodia() */
+      generarMelodia()
     }else if(Fondo.f === FondoMayor.f){
       Player.posX = width-85;
       Player.posY = 200;
@@ -117,6 +144,163 @@ function cambiarFondo() {
 }
 function setup() {
   createCanvas(400, 400);
+  for(let nota of notas){
+    osc = new p5.Oscillator(nota);
+    osciladores.push(osc);
+  }
+}
+
+let numNotes = notas.length;
+function drawMelody() {
+  if(!check){
+  let keyWidth = (width/(numNotes-1));
+  for (let i = 0; i < (numNotes-1); i++) {
+    strokeWeight(1)
+    if(melody.notesIndex[i]===userMelody.notas[i]){
+      fill(120,100,100)      
+    }else if(userMelody.notas[i] === undefined){
+      fill(0,0,50,0.8)
+    }
+    else{
+      fill(0,100,40)
+    }
+    rect((i*keyWidth)+espacioNotasCheck,35, controlSize,controlSize,10)
+  }
+
+  for (let i = 0; i < (numNotes-1); i ++) {
+    if(Fondo.r == FondoMayor.r){
+      let x = i * keyWidth;
+      let y = keyWidth*2;
+      if(i > 1){
+        if(osciladores[i+1].started) {
+          let h = map(i, 0, numNotes, 0, 360);
+  
+          fill(h, 100, 100);
+        } else {
+          fill("white");
+        }
+  
+        rect((x), y, keyWidth, keyWidth*2, 10);
+      }else{
+        if(osciladores[i].started) {
+          let h = map(i, 0, numNotes, 0, 360);
+  
+          fill(h, 100, 100);
+        } else {
+          fill("white");
+        }
+  
+        rect((x), y, keyWidth, keyWidth*2, 10);
+      }
+    }else if(Fondo.r == FondoMenor.r){
+      let x = i * keyWidth;
+      let y = keyWidth*2;
+      if(i > 2){
+        if(osciladores[i+1].started) {
+          let h = map(i, 0, numNotes, 0, 360);
+  
+          fill(h, 100, 100);
+        } else {
+          fill("white");
+        }
+  
+        rect((x), y, keyWidth, keyWidth*2, 10);
+      }else{
+        if(osciladores[i].started) {
+          let h = map(i, 0, numNotes, 0, 360);
+  
+          fill(h, 100, 100);
+        } else {
+          fill("white");
+        }
+  
+        rect((x), y, keyWidth, keyWidth*2, 10);
+      }
+    }
+    
+  }
+  }
+}
+function playNote(n){
+  
+  osciladores[n].amp(0.1,0.1);
+  if(osciladores[n].started === false){
+    osciladores[n].start();
+    let h = map(n, 0, numNotes, 0, 360);
+  }
+  setTimeout(stopNote, noteDuration * 1000 , n)
+}
+function stopNote(n) {
+  osciladores[n].amp(0, 0.01);
+
+  osciladores[n].stop();
+}
+function playMelody(melodia){
+  if (typeof melodia === 'string') {
+    melodia = JSON.parse(melodia);
+  }
+
+  for (let [index, note] of melodia.entries()) {
+    setTimeout(playNote, noteDuration * 1000 * index, note);
+  }
+}
+
+function play(melodia) {
+if (ActionCondition) {
+  if (typeof melodia === 'string') {
+    melodia = JSON.parse(melodia);
+  }
+
+  for (let [index, note] of melodia.entries()) {
+    setTimeout(playNote, noteDuration * 1000 * index, note);
+  }
+}
+}
+function generarMelodia(){
+  melody.notesIndex=[];
+  for(let i = 0; i < 5 ; i++){
+    let nota
+    do{
+      nota = Number.parseInt(random(0,5));
+      if(Fondo.r === FondoMayor.r && nota === 2){
+        nota = nota + 1;
+      }else if(Fondo.r === FondoMenor.r && nota === 3){
+        nota = nota - 1;
+      }
+    }while(nota == melody.notesIndex[i-1])
+    melody.notesIndex.push(nota)
+  }
+}
+let userMelody= {
+  notas:[],
+  tempo: 120,
+}
+function saveMelody(n){
+  userMelody.notas.push(n);
+  if(userMelody.notas.length == 5){
+    compararMelodias()
+  }else if(userMelody.notas.length >5){
+    userMelody.notas = [];
+  }
+}
+let check;
+function compararMelodias(){
+  check = true;
+  for(let nota of userMelody.notas.entries()){
+    if(userMelody.notas[nota[0]] != melody.notesIndex[nota[0]] || !check){
+      check = false;
+    }
+  }
+  if(check){
+    check=false
+    setTimeout(() => {
+      check= true
+    }, 1000);
+  }else{
+    setTimeout(() => {
+      userMelody.notas = [];
+    }, 1000);
+  }
 }
 
 function draw() {
