@@ -1,3 +1,12 @@
+let anchoScreen;
+let altoScreen;
+if(window.screen.availWidth < 600){
+  anchoScreen = 350;
+  altoScreen=500;
+}else{
+  anchoScreen = 600
+  altoScreen=700;
+}
 let osc;
 let myFreq = 262;
 let amp = 0.1;
@@ -18,9 +27,56 @@ let noteDuration = 60 / melody.tempo;
 let osciladores= [];
 let SlimeLeft, SlimeRight, Player, ClassRoom,ClassRoomLeft,ClassRoomRight,RoomRecorder,TeclasImg, Fondo;
 let ActionCondition = false;
-let controlSize = 75;
+let controlSize;
+let positionControlYa;
+let positionControlYb;
+let positionControlXa;
+let positionControlXb;
+let positionControlXc;
+let controlAcPl;
 let espacioNotasCheck;
-espacioNotasCheck= 10;
+let RecorderBtnWidth;
+let RecorderBtnHeight;
+let VictoryBtnWidth;
+let VictoryBtnHeight;
+let VictoryBtnbgWidth;
+let VictoryBtnbgHeight;
+let VictoryBtnbgHeightAlt;
+
+  if(anchoScreen === 350){
+    controlSize=50
+    controlAcPl= 100
+    positionControlYa=(anchoScreen/5)*4.75;
+    positionControlYb=(anchoScreen/5)*5.55;
+    positionControlXa= anchoScreen/4;
+    positionControlXb= anchoScreen/10.65;
+    positionControlXc= anchoScreen/2.45;
+    espacioNotasCheck= 10
+    RecorderBtnWidth= anchoScreen/2;
+    RecorderBtnHeight= altoScreen/3;
+    VictoryBtnWidth= anchoScreen/5;
+    VictoryBtnHeight= altoScreen/3;
+    VictoryBtnbgWidth= anchoScreen/6;
+    VictoryBtnbgHeight= altoScreen/3.7;
+    VictoryBtnbgHeightAlt = VictoryBtnHeight*1.2;
+
+  }else{
+    espacioNotasCheck= 25
+    controlSize=80
+    controlAcPl= 160
+    positionControlYa=(anchoScreen/5)*4.25;
+    positionControlYb=(anchoScreen/5)*5;
+    positionControlXa= anchoScreen/4;
+    positionControlXb= anchoScreen/10.65;
+    positionControlXc= anchoScreen/2.45;
+    RecorderBtnWidth= anchoScreen/2;
+    RecorderBtnHeight= altoScreen/2.5;
+    VictoryBtnWidth= anchoScreen/3;
+    VictoryBtnHeight= altoScreen/3;
+    VictoryBtnbgWidth= anchoScreen/3.2;
+    VictoryBtnbgHeight= altoScreen/3.5;
+    VictoryBtnbgHeightAlt = VictoryBtnHeight*1.5;
+  }
 function preload(){
   SlimeLeft =  loadImage("./assets/Slime-left.png")
   SlimeRight =  loadImage("./assets/Slime-right.png")
@@ -169,7 +225,7 @@ function cambiarFondo() {
   }
 }
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(anchoScreen, altoScreen);
   for(let nota of notas){
     osc = new p5.Oscillator(nota);
     osciladores.push(osc);
@@ -354,6 +410,34 @@ function draw() {
   colorMode(HSB)
   if(Fondo.f == FondoMayor.f || Fondo.f == FondoMenor.f){
     generarNotas();
+  }
+  if(check){
+    strokeWeight(1)
+    fill(0,0,100,0.4)
+    rect(VictoryBtnbgWidth,VictoryBtnbgHeight,280,50,15)
+    fill(0,0,100,0.8)
+    rect(VictoryBtnbgWidth,VictoryBtnbgHeightAlt,280,50,15)
+    strokeWeight(0)
+    fill('black')
+    textSize(25)
+    text('La melodia es correcta!', VictoryBtnWidth,VictoryBtnHeight);
+    text('Guardar Melodia', VictoryBtnbgWidth+50, VictoryBtnbgHeightAlt+35)
+    strokeWeight(5);
+    line(width-30, 30,width-10,10);
+    line(width-30,10,width-10,30)
+  }
+}
+function mousePressed(){
+  if(check){
+    if(mouseX> width-30 && mouseX<width-10 && mouseY >10 && mouseY < 30){
+      check = false;
+      userMelody.notas = [];
+      recorderCheck=false;
+    }
+    if(mouseX > VictoryBtnbgWidth && mouseX < (VictoryBtnbgWidth)+280 && mouseY > VictoryBtnbgHeightAlt && mouseY < VictoryBtnbgHeightAlt+50){
+      recorderCheck=true;
+      saveMelodyFormHTML.classList.toggle('Ocultar');
+    }
   }
 }
 function generarNotas(){
