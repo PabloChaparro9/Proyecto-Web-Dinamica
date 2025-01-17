@@ -140,13 +140,13 @@ function movePlayer(){
   Player.posY += Player.velY;
 }
 function keyPressed() {
-  if(key === 'a' || key === 'A' || key === 'ArrowLeft'){
+  if((key === 'a' || key === 'A' || key === 'ArrowLeft') && !check){
     goLeft();
-  }else if(key === 'd' || key === 'D' || key === 'ArrowRight'){
+  }else if((key === 'd' || key === 'D' || key === 'ArrowRight') && !check){
     goRight();
-  }else if(key === 'w' || key === 'W' || key === 'ArrowUp'){
+  }else if((key === 'w' || key === 'W' || key === 'ArrowUp') && !check){
     goUp();
-  }else if(key === 's' || key === 'S' || key === 'ArrowDown'){
+  }else if((key === 's' || key === 'S' || key === 'ArrowDown') && !check){
     goDown();
   }else{
     resetVelocidad();
@@ -154,27 +154,27 @@ function keyPressed() {
   if((key === 'e' || key === 'E')){
     Accion();
   }
-  if((key === 't' || key === 'T') && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+  if((key === 't' || key === 'T') && !check && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
     playNote(0)
     saveMelody(0)
   }
-  if((key === 'y' || key === 'Y') && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+  if((key === 'y' || key === 'Y') && !check && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
     playNote(1)
     saveMelody(1)
   }
-  if((key === 'u' || key === 'U') && ActionCondition && Fondo.f === FondoMayor.f){
+  if((key === 'u' || key === 'U') && !check && ActionCondition && Fondo.f === FondoMayor.f){
     playNote(3)
     saveMelody(3)
   }
-  if((key === 'i' || key === 'I') && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+  if((key === 'i' || key === 'I') && !check && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
     playNote(4)
     saveMelody(4)
   }
-  if((key === 'o' || key === 'O') && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+  if((key === 'o' || key === 'O') && !check && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
     playNote(5)
     saveMelody(5)
   }
-  if(key === '7' && ActionCondition && Fondo.f === FondoMenor.f){
+  if(key === '7' && !check && ActionCondition && Fondo.f === FondoMenor.f){
     playNote(2)
     saveMelody(2)
   }
@@ -454,17 +454,18 @@ function mousePressed(){
     if(mouseX> width-30 && mouseX<width-10 && mouseY >10 && mouseY < 30){
       check = false;
       userMelody.notas = [];
-      recorderCheck=false;
-    }
-    if(mouseX > VictoryBtnbgWidth && mouseX < (VictoryBtnbgWidth)+280 && mouseY > VictoryBtnbgHeightAlt && mouseY < VictoryBtnbgHeightAlt+50){
-      recorderCheck=true;
-      saveMelodyFormHTML.classList.toggle('Ocultar');
     }
   }
-  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYa && mouseY < (positionControlYa+controlSize)) && Player.posX < width)&& !check && !recorderCheck){
+  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYa && mouseY < (positionControlYa+controlSize)) && Player.posX < width)&& !check){
     Accion();
   }
-  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posX < width)&& !check && !recorderCheck){
+  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posX < width)&& !check){
+    play(melody.notesIndex);
+  }
+  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYa && mouseY < (positionControlYa+controlSize)) && Player.posX < width)&& !check){
+    Accion();
+  }
+  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posX < width)&& !check){
     play(melody.notesIndex);
   }
   if(ActionCondition && !check){
