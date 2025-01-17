@@ -438,6 +438,28 @@ function draw() {
   strokeWeight(2);
   rect(0,((width/5)*4),width,height/2)
   controles()
+  if(mouseIsPressed=== true && !check){
+    if((mouseX> positionControlXa && mouseX<(positionControlXa+controlSize) && mouseY > positionControlYa && mouseY < (positionControlYa+controlSize)) && Player.posY > 0){
+      goUp();
+      movePlayer();
+      cambiarFondo();
+    }
+    if((mouseX> positionControlXb && mouseX<(positionControlXb+controlSize) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posX > 0){
+      goLeft();
+      movePlayer();
+      cambiarFondo();
+    }
+    if((mouseX> positionControlXa && mouseX<(positionControlXa+controlSize) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posY < (width/5)*4 - 75){
+      goDown();
+      movePlayer();
+      cambiarFondo();
+    }
+    if((mouseX> positionControlXc && mouseX<(positionControlXc+controlSize) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posX < width){
+      goRight();
+      movePlayer();
+      cambiarFondo();
+    }
+  }
 }
 function controles(){
   strokeWeight(0);
