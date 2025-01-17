@@ -1,6 +1,15 @@
 let anchoScreen;
 let altoScreen;
-if(window.screen.availWidth < 600){
+let menu1 = true;
+let menu2 = false;
+let menu3 = false;
+let menu4 = false;
+let menu;
+function checkMenu(){
+  return menu  = (menu1 || menu2 || menu3 || menu4);
+};
+checkMenu()
+  if(window.screen.availWidth < 600){
   anchoScreen = 350;
   altoScreen=500;
 }else{
@@ -140,13 +149,13 @@ function movePlayer(){
   Player.posY += Player.velY;
 }
 function keyPressed() {
-  if((key === 'a' || key === 'A' || key === 'ArrowLeft') && !check){
+  if((key === 'a' || key === 'A' || key === 'ArrowLeft') && !check && !menu){
     goLeft();
-  }else if((key === 'd' || key === 'D' || key === 'ArrowRight') && !check){
+  }else if((key === 'd' || key === 'D' || key === 'ArrowRight') && !check && !menu){
     goRight();
-  }else if((key === 'w' || key === 'W' || key === 'ArrowUp') && !check){
+  }else if((key === 'w' || key === 'W' || key === 'ArrowUp') && !check && !menu){
     goUp();
-  }else if((key === 's' || key === 'S' || key === 'ArrowDown') && !check){
+  }else if((key === 's' || key === 'S' || key === 'ArrowDown') && !check && !menu){
     goDown();
   }else{
     resetVelocidad();
@@ -154,27 +163,27 @@ function keyPressed() {
   if((key === 'e' || key === 'E')){
     Accion();
   }
-  if((key === 't' || key === 'T') && !check && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+  if((key === 't' || key === 'T') && !check && ActionCondition && !menu && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
     playNote(0)
     saveMelody(0)
   }
-  if((key === 'y' || key === 'Y') && !check && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+  if((key === 'y' || key === 'Y') && !check && ActionCondition && !menu && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
     playNote(1)
     saveMelody(1)
   }
-  if((key === 'u' || key === 'U') && !check && ActionCondition && Fondo.f === FondoMayor.f){
+  if((key === 'u' || key === 'U') && !check && ActionCondition && !menu && Fondo.f === FondoMayor.f){
     playNote(3)
     saveMelody(3)
   }
-  if((key === 'i' || key === 'I') && !check && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+  if((key === 'i' || key === 'I') && !check && ActionCondition && !menu && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
     playNote(4)
     saveMelody(4)
   }
-  if((key === 'o' || key === 'O') && !check && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+  if((key === 'o' || key === 'O') && !check && ActionCondition && !menu && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
     playNote(5)
     saveMelody(5)
   }
-  if(key === '7' && !check && ActionCondition && Fondo.f === FondoMenor.f){
+  if(key === '7' && !check && ActionCondition && !menu && Fondo.f === FondoMenor.f){
     playNote(2)
     saveMelody(2)
   }
@@ -438,7 +447,7 @@ function draw() {
   strokeWeight(2);
   rect(0,((width/5)*4),width,height/2)
   controles()
-  if(mouseIsPressed=== true && !check){
+  if(mouseIsPressed=== true && !check && !menu){
     if((mouseX> positionControlXa && mouseX<(positionControlXa+controlSize) && mouseY > positionControlYa && mouseY < (positionControlYa+controlSize)) && Player.posY > 0){
       goUp();
       movePlayer();
@@ -471,11 +480,16 @@ function controles(){
   image(TeclasImg.TeclaAccion,width/1.5,positionControlYa,controlAcPl,controlSize);
   if(ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){image(TeclasImg.TeclaMelodia,width/1.5,positionControlYb,controlAcPl,controlSize);}
 }
+let saveMelodyFormHTML = document.getElementById('saveMelody');
 function mousePressed(){
   if(check){
     if(mouseX> width-30 && mouseX<width-10 && mouseY >10 && mouseY < 30){
       check = false;
       userMelody.notas = [];
+    }
+    if(mouseX > VictoryBtnbgWidth && mouseX < (VictoryBtnbgWidth)+280 && mouseY > VictoryBtnbgHeightAlt && mouseY < VictoryBtnbgHeightAlt+50){
+      saveMelodyFormHTML.classList.toggle('Ocultar');
+      menu4 = !menu4;
     }
   }
   if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYa && mouseY < (positionControlYa+controlSize)) && Player.posX < width)&& !check){

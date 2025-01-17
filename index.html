@@ -21,8 +21,8 @@
         </button>
       </div>
       <div id="Opciones" class="Opciones Ocultar">
-        <button type="button" onclick="document.getElementById('login').classList.toggle('Ocultar');document.getElementById('Opciones').classList.toggle('Mostrar')">Iniciar Sesion</button>
-        <button type="button" onclick="document.getElementById('guia').classList.toggle('Ocultar');document.getElementById('Opciones').classList.toggle('Mostrar')">Guia</button>
+        <button type="button" onclick="MenuInteract('login')">Iniciar Sesion</button>
+        <button type="button" onclick="MenuInteract('guia')">Guia</button>
       </div>
     </nav>
   <section class ="login" id="login">
@@ -56,11 +56,11 @@
       <button type="submit">Guardar melodia</button>
     </form>
     <p id="guardarMensaje"></p>
-    <button class="cerrarVentana" type="button" onclick="document.getElementById('saveMelody').classList.toggle('Ocultar')">cerrar Ventana</button>
+    <button class="cerrarVentana" type="button" onclick="MenuInteract('saveMelody')">cerrar Ventana</button>
   </section>
   <section id="melodiasGuardadasSection" class="melodiasGuardadasSection Ocultar">
     <ul id="melodiasGuardadas"></ul>
-    <button class="cerrarVentana" type="button" onclick="cerrarVentana()">cerrar Ventana</button>
+    <button class="cerrarVentana" type="button" onclick="MenuInteract('melodiasGuardadasSection')">cerrar Ventana</button>
   </section>
   <section class="guia Ocultar" id="guia">
     <h2>Guía del jugador</h2>
@@ -128,6 +128,7 @@
     <p>En el menú, presiona el botón "Reproducir" junto al nombre de la melodía que deseas escuchar.</p>
 
   </section>
+    <script src="main.js" defer></script>
     <script src="sketch.js"></script>
   </body>
 </html>
