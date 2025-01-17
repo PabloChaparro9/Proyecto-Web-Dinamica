@@ -91,6 +91,14 @@ function preload(){
     velX: 0,
     velY: 0,
   };
+  TeclasImg={
+    TeclaA: loadImage("./assets/TeclaA.svg"),
+    TeclaS: loadImage("./assets/TeclaS.svg"),
+    TeclaD: loadImage("./assets/TeclaD.svg"),
+    TeclaW: loadImage("./assets/TeclaW.svg"),
+    TeclaAccion: loadImage("./assets/TeclaAccion.svg"),
+    TeclaMelodia: loadImage("./assets/TeclaMelodia.svg"),
+  }
   FondoNeutro ={
     f:1,
   };
@@ -426,6 +434,20 @@ function draw() {
     line(width-30, 30,width-10,10);
     line(width-30,10,width-10,30)
   }
+  fill(134,52,61)
+  strokeWeight(2);
+  rect(0,((width/5)*4),width,height/2)
+  controles()
+}
+function controles(){
+  strokeWeight(0);
+  fill(160,100,50);
+  image(TeclasImg.TeclaW,positionControlXa,positionControlYa,controlSize,controlSize);
+  image(TeclasImg.TeclaA,positionControlXb,positionControlYb,controlSize,controlSize);
+  image(TeclasImg.TeclaS,positionControlXa,positionControlYb,controlSize,controlSize);
+  image(TeclasImg.TeclaD,positionControlXc,positionControlYb,controlSize,controlSize);
+  image(TeclasImg.TeclaAccion,width/1.5,positionControlYa,controlAcPl,controlSize);
+  if(ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){image(TeclasImg.TeclaMelodia,width/1.5,positionControlYb,controlAcPl,controlSize);}
 }
 function mousePressed(){
   if(check){
