@@ -19,6 +19,8 @@ let osciladores= [];
 let SlimeLeft, SlimeRight, Player, ClassRoom,ClassRoomLeft,ClassRoomRight,RoomRecorder,TeclasImg, Fondo;
 let ActionCondition = false;
 let controlSize = 75;
+let espacioNotasCheck;
+espacioNotasCheck= 10;
 function preload(){
   SlimeLeft =  loadImage("./assets/Slime-left.png")
   SlimeRight =  loadImage("./assets/Slime-right.png")
@@ -88,9 +90,33 @@ function keyPressed() {
   if((key === 'e' || key === 'E')){
     Accion();
   }
+  if((key === 't' || key === 'T') && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+    playNote(0)
+    saveMelody(0)
+  }
+  if((key === 'y' || key === 'Y') && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+    playNote(1)
+    saveMelody(1)
+  }
+  if((key === 'u' || key === 'U') && ActionCondition && Fondo.f === FondoMayor.f){
+    playNote(3)
+    saveMelody(3)
+  }
+  if((key === 'i' || key === 'I') && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+    playNote(4)
+    saveMelody(4)
+  }
+  if((key === 'o' || key === 'O') && ActionCondition && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
+    playNote(5)
+    saveMelody(5)
+  }
+  if(key === '7' && ActionCondition && Fondo.f === FondoMenor.f){
+    playNote(2)
+    saveMelody(2)
+  }
 }
 function Accion(){
-  if(Fondo.r === FondoMayor.r || Fondo.r === FondoMenor.r || Fondo.r === 100){
+  if(Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f || Fondo.f === 100){
     ActionCondition = !ActionCondition;
   }
 }
@@ -168,7 +194,7 @@ function drawMelody() {
   }
 
   for (let i = 0; i < (numNotes-1); i ++) {
-    if(Fondo.r == FondoMayor.r){
+    if(Fondo.f == FondoMayor.f){
       let x = i * keyWidth;
       let y = keyWidth*2;
       if(i > 1){
@@ -192,7 +218,7 @@ function drawMelody() {
   
         rect((x), y, keyWidth, keyWidth*2, 10);
       }
-    }else if(Fondo.r == FondoMenor.r){
+    }else if(Fondo.f == FondoMenor.f){
       let x = i * keyWidth;
       let y = keyWidth*2;
       if(i > 2){
@@ -262,9 +288,9 @@ function generarMelodia(){
     let nota
     do{
       nota = Number.parseInt(random(0,5));
-      if(Fondo.r === FondoMayor.r && nota === 2){
+      if(Fondo.f === FondoMayor.f && nota === 2){
         nota = nota + 1;
-      }else if(Fondo.r === FondoMenor.r && nota === 3){
+      }else if(Fondo.f === FondoMenor.f && nota === 3){
         nota = nota - 1;
       }
     }while(nota == melody.notesIndex[i-1])
@@ -325,4 +351,18 @@ function draw() {
   }else resetVelocidad();
   fondo();
   player();
+  colorMode(HSB)
+  if(Fondo.f == FondoMayor.f || Fondo.f == FondoMenor.f){
+    generarNotas();
+  }
+}
+function generarNotas(){
+  if(Player.posX > (width/2.5)-30 && Player.posX < (width/2.5) + 105 && Player.posY > (height/4) && Player.posY < (height / 4)+135 && ActionCondition){
+    fill('rgba(15%,15%,15%,0.5)')
+    strokeWeight(1)
+    rect(0,0, width,height);
+    drawMelody()
+  }else{
+    ActionCondition=false
+  }
 }
