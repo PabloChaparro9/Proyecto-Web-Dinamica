@@ -439,6 +439,35 @@ function mousePressed(){
       saveMelodyFormHTML.classList.toggle('Ocultar');
     }
   }
+  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYa && mouseY < (positionControlYa+controlSize)) && Player.posX < width)&& !check && !recorderCheck){
+    Accion();
+  }
+  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posX < width)&& !check && !recorderCheck){
+    play(melody.notesIndex);
+  }
+  if(ActionCondition && !check){
+    let keyWidth = (width/(numNotes-1));
+    let y = keyWidth*2;
+    
+    if(!check){for (let i = 0; i < numNotes; i++) {
+      let x = i * keyWidth;
+      if (mouseX > x && 
+        mouseX < x + keyWidth && 
+        mouseY > y && 
+        mouseY < y + keyWidth * 2){
+        if(i>2 && Fondo.f === FondoMenor.f && mouseX < width){
+          playNote(i+1);
+          saveMelody(i+1);
+        }else if(i > 1 && Fondo.f === FondoMayor.f && mouseX < width){
+          playNote(i+1);
+          saveMelody(i+1);
+        }else{
+          playNote(i);
+          saveMelody(i);
+        }
+      }
+    }}
+  }
 }
 function generarNotas(){
   if(Player.posX > (width/2.5)-30 && Player.posX < (width/2.5) + 105 && Player.posY > (height/4) && Player.posY < (height / 4)+135 && ActionCondition){
