@@ -3,7 +3,7 @@ const HostPort={
     PORT: 0,
   }
   async function getURL() {
-    const response = await fetch('/config')
+    const response = await fetch('http://192.168.0.7:3000/config');
     const config = await response.json();
     HostPort.HOST = config.HOST;
     HostPort.PORT = config.PORT;
@@ -34,6 +34,8 @@ const HostPort={
         const data = await response.json();
   
         if (response.ok) {
+          menu1 = !menu1;
+          checkMenu();
           formSectionHTML.classList.toggle('Ocultar')
           formHTML.classList.toggle('Ocultar')
           document.getElementById('btnRegistrar').classList.toggle('Ocultar');
@@ -56,7 +58,7 @@ const HostPort={
       const password = document.getElementById('registerPassword').value;
   
       try {
-        const response = await fetch('http://192.168.0.7:3000/register', {
+        const response = await fetch(`http://${HostPort.HOST}:${HostPort.PORT}/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password }),
@@ -105,7 +107,7 @@ const HostPort={
         ];
   
         try {
-          const response = await fetch('http://192.168.0.7:3000/guardar-melodia', {
+          const response = await fetch(`http://${HostPort.HOST}:${HostPort.PORT}/guardar-melodia`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId, nombre, notas }),
@@ -135,7 +137,7 @@ const HostPort={
         return;
       }
       try {
-        const response = await fetch(`http://192.168.0.7:3000/melodias/${userId}`);
+        const response = await fetch(`http://${HostPort.HOST}:${HostPort.PORT}/${userId}`);
         const melodias = await response.json();
         lista.innerHTML = '';
         
