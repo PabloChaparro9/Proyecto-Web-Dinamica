@@ -160,7 +160,7 @@ function keyPressed() {
   }else{
     resetVelocidad();
   }
-  if((key === 'e' || key === 'E')){
+  if((key === 'e' || key === 'E') && !menu && !check){
     Accion();
   }
   if((key === 't' || key === 'T') && !check && ActionCondition && !menu && (Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f)){
@@ -189,8 +189,11 @@ function keyPressed() {
   }
 }
 function Accion(){
-  if(Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f || Fondo.f === 100){
+  if(Fondo.f === FondoMayor.f || Fondo.f === FondoMenor.f){
     ActionCondition = !ActionCondition;
+  }else if(Fondo.f === 0){
+    mostrarGrabaciones();
+    ActionCondition = true;
   }
 }
 function player(){
@@ -498,13 +501,7 @@ function mousePressed(){
   if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posX < width)&& !check){
     play(melody.notesIndex);
   }
-  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYa && mouseY < (positionControlYa+controlSize)) && Player.posX < width)&& !check){
-    Accion();
-  }
-  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posX < width)&& !check){
-    play(melody.notesIndex);
-  }
-  if(ActionCondition && !check){
+  if(ActionCondition && !check && !menu){
     let keyWidth = (width/(numNotes-1));
     let y = keyWidth*2;
     
@@ -526,6 +523,14 @@ function mousePressed(){
         }
       }
     }}
+  }
+}
+const saveMelodyHTML = document.getElementById('melodiasGuardadasSection');
+function mostrarGrabaciones(){
+  if(Player.posX > RecorderBtnWidth-60 && Player.posX < RecorderBtnWidth + 105 && Player.posY > RecorderBtnHeight-40 && Player.posY < RecorderBtnHeight+135 && ActionCondition){
+    saveMelodyHTML.classList.toggle('Ocultar');
+    menu3 = !menu3;
+    checkMenu();
   }
 }
 function generarNotas(){

@@ -166,18 +166,21 @@ const HostPort={
         document.getElementById('login').classList.toggle('Ocultar');
         document.getElementById('Opciones').classList.toggle('Mostrar');
         menu1 = !menu1;
-        checkMenu()
+        checkMenu();
       }else if(itemId == 'guia'){
         document.getElementById('guia').classList.toggle('Ocultar');
         document.getElementById('Opciones').classList.toggle('Mostrar');
         menu2 = !menu2;
-        checkMenu()
+        checkMenu();
       }else if(itemId == 'saveMelody'){
         document.getElementById('saveMelody').classList.toggle('Ocultar')
-        menu3 = !menu3;
-      }else if(itemId == 'melodiasGuardadasSection'){
-        document.getElementById('melodiasGuardadasSection').classList.toggle('Ocultar')
         menu4 = !menu4;
+        checkMenu();
+      }else if(itemId == 'melodiasGuardadasSection'){
+        document.getElementById('melodiasGuardadasSection').classList.toggle('Ocultar');
+        menu3 = !menu3;
+        ActionCondition = !ActionCondition;
+        checkMenu();
       }
     }
   
