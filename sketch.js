@@ -486,19 +486,20 @@ function controles(){
 let saveMelodyFormHTML = document.getElementById('saveMelody');
 function mousePressed(){
   if(check){
-    if(mouseX> width-30 && mouseX<width-10 && mouseY >10 && mouseY < 30){
+    if(mouseX> width-30 && mouseX<width-10 && mouseY >10 && mouseY < 30 && !menu){
       check = false;
       userMelody.notas = [];
     }
-    if(mouseX > VictoryBtnbgWidth && mouseX < (VictoryBtnbgWidth)+280 && mouseY > VictoryBtnbgHeightAlt && mouseY < VictoryBtnbgHeightAlt+50){
+    if(mouseX > VictoryBtnbgWidth && mouseX < VictoryBtnbgWidth+280 && mouseY > VictoryBtnbgHeightAlt && mouseY < VictoryBtnbgHeightAlt+50 && !menu){
       saveMelodyFormHTML.classList.toggle('Ocultar');
       menu4 = !menu4;
+      checkMenu();
     }
   }
-  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYa && mouseY < (positionControlYa+controlSize)) && Player.posX < width)&& !check){
+  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYa && mouseY < (positionControlYa+controlSize)) && Player.posX < width)&& !check && !menu){
     Accion();
   }
-  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posX < width)&& !check){
+  if(((mouseX> width/1.5 && mouseX<((width/1.5)+controlAcPl) && mouseY > positionControlYb && mouseY < (positionControlYb+controlSize)) && Player.posX < width)&& !check && !menu){
     play(melody.notesIndex);
   }
   if(ActionCondition && !check && !menu){
