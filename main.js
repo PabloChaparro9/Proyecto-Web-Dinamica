@@ -3,7 +3,7 @@ const HostPort={
     PORT: 0,
   }
   async function getURL() {
-    const response = await fetch('http://192.168.0.7:3000/config');
+    const response = await fetch('http://192.168.0.13:3000/config');
     const config = await response.json();
     HostPort.HOST = config.HOST;
     HostPort.PORT = config.PORT;
@@ -137,7 +137,7 @@ const HostPort={
         return;
       }
       try {
-        const response = await fetch(`http://${HostPort.HOST}:${HostPort.PORT}/${userId}`);
+        const response = await fetch(`http://${HostPort.HOST}:${HostPort.PORT}/melodias/${userId}`);
         const melodias = await response.json();
         lista.innerHTML = '';
         
